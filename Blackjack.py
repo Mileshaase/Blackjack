@@ -73,8 +73,21 @@ def option2():
     global dealerHand
     global numOfGames
     global hand
-    dealerHand = rng.next_int(26) + 16
-    print(f"Dealer's hand: {dealerHand}\nYour hand is: {hand}\n ")
+    global dealerWins
+    global playerWins
+    dealerHand = rng.next_int(11) + 26
+    print(f"\nDealer's hand: {dealerHand}\nYour hand is: {hand}\n ")
+
+    if(dealerHand > 21):
+        print("Dealer exceeded 21! You win!")
+        playerWins = playerWins + 1
+        numOfGames = numOfGames + 1
+        startGame()
+    elif(hand > 21):
+        print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n\nYou exceeded 21! You lose.\n")
+        dealerWins = dealerWins + 1
+        numOfGames = numOfGames + 1
+        startGame()
 
     if(hand > dealerHand):
         print("You win!\n ")
@@ -83,7 +96,6 @@ def option2():
     elif(hand == dealerHand):
         print("It's a tie! No one wins!\n ")
 
-    
     numOfGames = numOfGames + 1
     startGame()
 
