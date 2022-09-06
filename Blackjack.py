@@ -103,10 +103,8 @@ def option3():
     percentageOfPlayerWins = round(playerWins / numOfGames, 1)
     print(f"Number of Player wins: {playerWins}\nNumber of Dealer wins: {dealerWins}\nNumber of tie games: {ties}\nTotal # of games played is: {numOfGames}\nPercentage of Player wins: {percentageOfPlayerWins}%\n ")
     printMenu()
-
+    
 def checkMenuSelection():
-    global numOfGames
-    global menuChoice
     if(menuChoice == "1"):
         option1()
     elif(menuChoice == "2"):
@@ -118,6 +116,7 @@ def checkMenuSelection():
     else:
         print(f"Invalid input!\nPlease enter an integer value between 1 and 4.")
         printMenu()
+    
 
 def exit():
     global gameExited
