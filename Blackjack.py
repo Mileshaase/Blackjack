@@ -52,23 +52,6 @@ def dealCard():
         print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n ")
         printMenu()
 
-def printMenu():
-    print("1. Get another card\n2. Hold hand\n3. Print statistics\n4. Exit\n ")
-    global menuChoice 
-    menuChoice = input("Choose an option: ").lower()
-    checkMenuSelection()
-
-def startGame():
-    global hand
-    global dealerHand
-    hand = 0
-    dealerHand = 0
-    print(f"START GAME #{numOfGames}")
-    dealCard()
-    
-def option1():
-    dealCard()
-
 def option2():
     global dealerHand
     global numOfGames
@@ -103,10 +86,14 @@ def option3():
     percentageOfPlayerWins = round(playerWins / numOfGames, 1)
     print(f"Number of Player wins: {playerWins}\nNumber of Dealer wins: {dealerWins}\nNumber of tie games: {ties}\nTotal # of games played is: {numOfGames}\nPercentage of Player wins: {percentageOfPlayerWins}%\n ")
     printMenu()
-    
+
+def exit():
+    global gameExited
+    gameExited = True
+
 def checkMenuSelection():
     if(menuChoice == "1"):
-        option1()
+        dealCard()
     elif(menuChoice == "2"):
         option2()
     elif(menuChoice == "3"):
@@ -116,11 +103,21 @@ def checkMenuSelection():
     else:
         print(f"Invalid input!\nPlease enter an integer value between 1 and 4.")
         printMenu()
-    
 
-def exit():
-    global gameExited
-    gameExited = True
+def printMenu():
+    print("1. Get another card\n2. Hold hand\n3. Print statistics\n4. Exit\n ")
+    global menuChoice
+    menuChoice = input("Choose an option: ").lower()
+    checkMenuSelection()
 
-while gameExited == False:
-    startGame()
+def startGame():
+    global hand
+    global dealerHand
+    hand = 0
+    dealerHand = 0
+    print(f"START GAME #{numOfGames}")
+    dealCard()
+
+def main():
+    while gameExited == False:
+        startGame()
