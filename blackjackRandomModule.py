@@ -1,5 +1,4 @@
-import p1_random as p1 # import the module (do this on the first line of code)
-rng = p1.P1Random() # create a P1Random variable (do this in main)
+import random
 
 numOfGames = 1
 cardValue = 0
@@ -20,7 +19,7 @@ def dealCard():
     global dealerWins
     global numOfGames
     global playerWins
-    cardValue = rng.next_int(13) + 1
+    cardValue = random.randint(1, 13)
     if(cardValue == 1):
         cardName = "ACE"
     elif(cardValue >= 2 and cardValue <= 10):
@@ -73,7 +72,7 @@ def option2():
     global dealerHand
     global numOfGames
     global hand
-    dealerHand = rng.next_int(26) + 16
+    dealerHand = random.randint(16,26)
     print(f"Dealer's hand: {dealerHand}\nYour hand is: {hand}\n ")
 
     if(hand > dealerHand):
