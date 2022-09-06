@@ -37,6 +37,11 @@ def dealCard():
         playerWins = playerWins + 1
         numOfGames = numOfGames + 1
         startGame()
+    elif(dealerHand > 21):
+        print("Dealer exceeded 21! You win!")
+        playerWins = playerWins + 1
+        numOfGames = numOfGames + 1
+        startGame()
     elif(hand > 21):
         print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n\nYou exceeded 21! You lose.\n")
         dealerWins = dealerWins + 1
