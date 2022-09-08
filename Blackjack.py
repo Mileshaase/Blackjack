@@ -83,47 +83,47 @@ def checkWin(type): #checks whether or not the dealer or user won
         global numOfGames
         global ties
         winnerChosen = False
-        if(hand == 21):
+        if(hand == 21): #Checks if the player wins through a blackjack
             print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n ")
             print("\nBLACKJACK! You win!\n ")
             winnerChosen = True
             playerWins = playerWins + 1
             numOfGames = numOfGames + 1
             startGame()
-        if(dealerHand > 21):
+        if(dealerHand > 21): #checks if the player wins by the dealer exceeding 21 cards
             print("You win!\n ")
             winnerChosen = True
             playerWins = playerWins + 1
             numOfGames = numOfGames + 1
             startGame()
-        if(hand > 21):
+        if(hand > 21): #checks if the player loses by exceeded 21 cards
             print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n\nYou exceeded 21! You lose.\n")
             winnerChosen = True
             dealerWins = dealerWins + 1
             numOfGames = numOfGames + 1
             startGame()
 
-        if(type == "Hold"):
-            if(hand > dealerHand):
+        if(type == "Hold"): #only checks the wins after a hold move
+            if(hand > dealerHand): #Checks if the player wins from having a higher card than the dealer
                 print("\nYou win!\n ")
                 winnerChosen = True
                 playerWins = playerWins + 1
                 numOfGames = numOfGames + 1
                 startGame()
-            if(hand < dealerHand):
+            if(hand < dealerHand): #checks if the dealer wins from having a higher card than the user
                 print("\nDealer wins!\n ")
                 winnerChosen = True
                 dealerWins = dealerWins + 1
                 numOfGames = numOfGames + 1
                 startGame()
-            if(hand == dealerHand):
+            if(hand == dealerHand): #checks if the game is a tie if the hands are the same value
                 print("\nIt's a tie! No one wins!\n ")
                 winnerChosen = True
                 ties = ties + 1
                 numOfGames = numOfGames + 1
                 startGame()
 
-        if(winnerChosen == False):        
+        if(winnerChosen == False): #checks if no one won and prints the menu
             print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n ")
             printMenu()
 
