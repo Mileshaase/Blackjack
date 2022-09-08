@@ -1,6 +1,6 @@
 import p1_random as p1 # import the module (do this on the first line of code)
-rng = p1.P1Random() # create a P1Random variable (do this in main)
 
+rng = p1.P1Random() # create a P1Random variable
 numOfGames = 1
 cardValue = 0
 cardName = " "
@@ -12,7 +12,6 @@ playerWins = 0
 ties = 0
 gameExited = False
 
-
 def startGame(): #runs the begining of the game
     if(gameExited == False):
         global hand
@@ -21,7 +20,6 @@ def startGame(): #runs the begining of the game
         dealerHand = 0
         print(f"START GAME #{numOfGames}")
         dealCard() #starts the next process after the game begins
-
 
 def printMenu(): #prints out the menu options to the user
     if(gameExited == False):
