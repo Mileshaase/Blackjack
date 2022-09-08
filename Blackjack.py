@@ -13,22 +13,21 @@ ties = 0
 gameExited = False
 
 def option2():
-    global numOfGames
-    global playerWins
-    global dealerWins
-    dealerHand = rng.next_int(11) + 16
-    print(f"\nDealer's hand: {dealerHand}\nYour hand is: {hand}\n ")
-    checkWin("Hold")
-    numOfGames = numOfGames + 1
-    startGame()
+    if(gameExited == False):
+        global numOfGames
+        global dealerHand
+        dealerHand = rng.next_int(11) + 16
+        print(f"\nDealer's hand: {dealerHand}\nYour hand is: {hand}\n ")
+        checkWin("Hold")
+        numOfGames = numOfGames + 1
 
 def option3():
-    percentageOfPlayerWins = round((100*(playerWins / (numOfGames-1))), 1)
-    print(f"Number of Player wins: {playerWins}\nNumber of Dealer wins: {dealerWins}\nNumber of tie games: {ties}\nTotal # of games played is: {numOfGames - 1}\nPercentage of Player wins: {percentageOfPlayerWins}%\n ")
-    printMenu()
+    if(gameExited == False):
+        percentageOfPlayerWins = round((100*(playerWins / (numOfGames-1))), 1)
+        print(f"Number of Player wins: {playerWins}\nNumber of Dealer wins: {dealerWins}\nNumber of tie games: {ties}\nTotal # of games played is: {numOfGames - 1}\nPercentage of Player wins: {percentageOfPlayerWins}%\n ")
+        printMenu()
 
 def dealCard():
-    global gameExited
     if(gameExited == False):
         global cardValue
         global cardName
@@ -49,13 +48,9 @@ def dealCard():
             cardName = "KING"
             cardValue = 10
         hand = cardValue + hand
-
-        if(checkWin("Deal") == False):
-            print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n ")
-            printMenu()
+        checkWin("Deal")
 
 def startGame():
-    global gameExited
     if(gameExited == False):
         global hand
         global dealerHand
@@ -66,77 +61,77 @@ def startGame():
 
 def checkMenuSelection():
     global gameExited
-    if(gameExited == False):
-        if(menuChoice == "1"):
-            dealCard()
-        elif(menuChoice == "2"):
-            option2()
-        elif(menuChoice == "3"):
-            option3()
-        elif(menuChoice == "4"):
-            gameExited = True
-        else:
-            print(f"Invalid input!\nPlease enter an integer value between 1 and 4.\n ")
-            printMenu()
+    if(menuChoice == "1"):
+        dealCard()
+    elif(menuChoice == "2"):
+        option2()
+    elif(menuChoice == "3"):
+        option3()
+    elif(menuChoice == "4"):
+        gameExited = True
+    else:
+        print(f"Invalid input!\nPlease enter an integer value between 1 and 4.\n ")
+        printMenu()
 
 def printMenu():
-    global gameExited
     if(gameExited == False):
-        print("1. Get another card\n2. Hold hand\n3. Print statistics\n4. Exit\n ")
         global menuChoice
+        print("1. Get another card\n2. Hold hand\n3. Print statistics\n4. Exit\n ")
         menuChoice = input("Choose an option: ")
-        menuChoice = menuChoice.lower()
         checkMenuSelection()
+        if(gameExited == True):
+            exit()
 
 def checkWin(type):
-    global playerWins
-    global dealerWins
-    global numOfGames
-    winnerChoosen = False
-    type = ""
-    if(hand == 21):
-        print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n ")
-        print("\nBLACKJACK! You win!\n ")
-        playerWins = playerWins + 1
-        numOfGames = numOfGames + 1
-        startGame()
-    elif(dealerHand > 21):
-        print("Dealer exceeded 21! You win!\n ")
-        playerWins = playerWins + 1
-        numOfGames = numOfGames + 1
-        startGame()
-    elif(hand > 21):
-        print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n\nYou exceeded 21! You lose.\n")
-        dealerWins = dealerWins + 1
-        numOfGames = numOfGames + 1
-        startGame()
-    
-    if(dealerHand > 21):
-        print("You win!")
-        playerWins = playerWins + 1
-        numOfGames = numOfGames + 1
-        startGame()
-    elif(hand > 21):
-        print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n\nYou exceeded 21! You lose.\n ")
-        dealerWins = dealerWins + 1
-        numOfGames = numOfGames + 1
-        startGame()
-
-    if(type == "Hold"):
-        if(hand > dealerHand):
-            print("\nYou win!\n ")
+    if(gameExited == False):
+        global playerWins
+        global dealerWins
+        global numOfGames
+        global ties
+        winnerChosen = False
+        if(hand == 21):
+            print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n ")
+            print("\nBLACKJACK! You win!\n ")
+            winnerChosen = True
             playerWins = playerWins + 1
-        elif(hand < dealerHand):
-            print("\nDealer wins!\n ")
+            numOfGames = numOfGames + 1
+            startGame()
+        if(dealerHand > 21):
+            print("You win!\n ")
+            winnerChosen = True
+            playerWins = playerWins + 1
+            numOfGames = numOfGames + 1
+            startGame()
+        if(hand > 21):
+            print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n\nYou exceeded 21! You lose.\n")
+            winnerChosen = True
             dealerWins = dealerWins + 1
-        elif(hand == dealerHand):
-            print("\nIt's a tie! No one wins!\n ")
-            ties = ties + 1
-    
-    if(winnerChoosen == True):
-        return True
-    else:
-        return False
+            numOfGames = numOfGames + 1
+            startGame()
+
+        if(type == "Hold"):
+            if(hand > dealerHand):
+                print("\nYou win!\n ")
+                winnerChosen = True
+                playerWins = playerWins + 1
+                numOfGames = numOfGames + 1
+                startGame()
+            if(hand < dealerHand):
+                print("\nDealer wins!\n ")
+                winnerChosen = True
+                dealerWins = dealerWins + 1
+                numOfGames = numOfGames + 1
+                startGame()
+            if(hand == dealerHand):
+                print("\nIt's a tie! No one wins!\n ")
+                winnerChosen = True
+                ties = ties + 1
+                numOfGames = numOfGames + 1
+                startGame()
+
+        if(winnerChosen == False):        
+            print(f"\nYour card is a {cardName}!\nYour hand is: {hand}\n ")
+            printMenu()
 
 
 def main():
